@@ -90,9 +90,9 @@ const Hero: React.FC<HeroProps> = ({ showContent = true }) => {
         style={{ background: "var(--gradient-bg)" }}
       />
 
-      {/* Orb Background - Right Half */}
+      {/* Orb Background - Right Half - Desktop Only */}
       <div 
-        className="absolute z-[1]"
+        className="absolute z-[1] hidden xl:block"
         style={{ 
           width: '100%', 
           height: '100%', 
@@ -112,9 +112,9 @@ const Hero: React.FC<HeroProps> = ({ showContent = true }) => {
         />
         </div>
 
-      {/* Logo in Center of Orb */}
+      {/* Logo in Center of Orb - Desktop Only */}
       <div 
-        className="absolute z-[10] flex items-center justify-center pointer-events-none"
+        className="absolute z-[10] flex items-center justify-center pointer-events-none hidden xl:flex"
         style={{
           width: '100%',
           height: '100%',
