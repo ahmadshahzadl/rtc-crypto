@@ -1,0 +1,312 @@
+@import "tailwindcss";
+
+/* Import Component Styles */
+@import './styles/CommunityStats.css';
+@import './styles/Services.css';
+@import './styles/WhyChooseRTC.css';
+@import './styles/CallToAction.css';
+@import './styles/CryptoMarkets.css';
+@import './styles/Footer.css';
+
+/* CSS Variables for Theme Management */
+:root {
+  /* Dark Theme (Default) */
+  --icon-community: #fff;
+  --bg-primary: #000000;
+  --bg-secondary: #0f0f23;
+  --bg-tertiary: #1f2937;
+  --bg-card: rgba(255, 255, 255, 0.02);
+  --bg-card-hover: rgba(255, 255, 255, 0.05);
+  --bg-glass: rgba(255, 255, 255, 0.05);
+  --bg-glass-hover: rgba(255, 255, 255, 0.1);
+  
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #6b7280;
+  --text-accent: #6366f1;
+  
+  --border-primary: rgba(255, 255, 255, 0.1);
+  --border-secondary: rgba(255, 255, 255, 0.05);
+  --border-accent: rgba(99, 102, 241, 0.3);
+  
+  --gradient-primary: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --gradient-secondary: linear-gradient(135deg, #10b981, #06d6a0);
+  --gradient-accent: linear-gradient(135deg, #f59e0b, #f97316);
+  --gradient-highlight: linear-gradient(135deg, #ec4899, #be185d);
+  --gradient-text: linear-gradient(135deg, #ffffff, #a1a1aa);
+  --gradient-bg: linear-gradient(135deg, #1f2937, #000000, #374151);
+  
+  --shadow-primary: 0 15px 40px rgba(99, 102, 241, 0.3);
+  --shadow-secondary: 0 5px 15px rgba(16, 185, 129, 0.3);
+  --shadow-accent: 0 5px 15px rgba(245, 158, 11, 0.3);
+  --shadow-highlight: 0 5px 15px rgba(239, 68, 68, 0.3);
+  
+  --backdrop-blur: blur(10px);
+  --backdrop-blur-lg: blur(20px);
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 50px;
+  
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* Light Theme Variables */
+[data-theme="light"] {
+  --icon-community: #000; 
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #e2e8f0;
+  --bg-card: rgba(0, 0, 0, 0.02);
+  --bg-card-hover: rgba(0, 0, 0, 0.05);
+  --bg-glass: rgba(0, 0, 0, 0.05);
+  --bg-glass-hover: rgba(0, 0, 0, 0.1);
+  
+  --text-primary: #000000;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --text-accent: #1e40af;
+  
+  --border-primary: rgba(0, 0, 0, 0.1);
+  --border-secondary: rgba(0, 0, 0, 0.05);
+  --border-accent: rgba(30, 64, 175, 0.3);
+  
+  --gradient-primary: linear-gradient(135deg, #1e40af, #7c3aed);
+  --gradient-secondary: linear-gradient(135deg, #059669, #047857);
+  --gradient-accent: linear-gradient(135deg, #d97706, #ea580c);
+  --gradient-highlight: linear-gradient(135deg, #be185d, #9f1239);
+  --gradient-text: linear-gradient(135deg, #000000, #374151);
+  --gradient-bg: linear-gradient(135deg, #f1f5f9, #ffffff, #e2e8f0);
+  
+  --shadow-primary: 0 15px 40px rgba(30, 64, 175, 0.2);
+  --shadow-secondary: 0 5px 15px rgba(5, 150, 105, 0.2);
+  --shadow-accent: 0 5px 15px rgba(217, 119, 6, 0.2);
+  --shadow-highlight: 0 5px 15px rgba(190, 24, 93, 0.2);
+  
+  --backdrop-blur: blur(10px);
+  --backdrop-blur-lg: blur(20px);
+}
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Exo 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.6;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Utility Classes */
+.gradient-text {
+  background: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-secondary {
+  background: var(--gradient-secondary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-accent {
+  background: var(--gradient-accent);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass {
+  background: var(--bg-glass);
+  backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border-primary);
+}
+
+.glass-hover {
+  background: var(--bg-glass-hover);
+  backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border-primary);
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-xl);
+  backdrop-filter: var(--backdrop-blur);
+}
+
+.card-hover {
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-xl);
+  backdrop-filter: var(--backdrop-blur);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-accent {
+  color: var(--text-accent);
+}
+
+.bg-primary {
+  background: var(--bg-primary);
+}
+
+.bg-secondary {
+  background: var(--bg-secondary);
+}
+
+.bg-tertiary {
+  background: var(--bg-tertiary);
+}
+
+.border-primary {
+  border-color: var(--border-primary);
+}
+
+.border-secondary {
+  border-color: var(--border-secondary);
+}
+
+.border-accent {
+  border-color: var(--border-accent);
+}
+
+.shadow-primary {
+  box-shadow: var(--shadow-primary);
+}
+
+.shadow-secondary {
+  box-shadow: var(--shadow-secondary);
+}
+
+.shadow-accent {
+  box-shadow: var(--shadow-accent);
+}
+
+.shadow-highlight {
+  box-shadow: var(--shadow-highlight);
+}
+
+/* 3D Effects */
+.perspective-3d {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-primary);
+  border-radius: 3px;
+}
+
+/* Selection */
+::selection {
+  background: var(--text-accent);
+  color: var(--text-primary);
+  opacity: 0.3;
+}
+
+/* Focus */
+*:focus {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 2px;
+  opacity: 0.5;
+}
+
+/* Reset Elements */
+button, a, img, ul, ol, h1, h2, h3, h4, h5, h6, p {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+  text-decoration: none;
+  max-width: 100%;
+  height: auto;
+  list-style: none;
+  font-weight: inherit;
+  font-size: inherit;
+  margin: 0;
+}
+
+/* Loading styles removed */
+
+/* Responsive */
+@media (max-width: 768px) {
+  body { font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 12px; }
+}
+
+:root {
+  --gradient-indigo-purple-pink: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899, #be185d, #f59e0b, #f97316, #10b981, #06d6a0, #ffffff);
+  --gradient-indigo-pink: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899, #be185d);
+  --gradient-green: linear-gradient(135deg, #10b981, #06d6a0);
+  --gradient-yellow-orange: linear-gradient(135deg, #f59e0b, #f97316);
+  --gradient-pink: linear-gradient(135deg, #ec4899, #be185d);
+  --gradient-blue: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --gradient-white-gray: linear-gradient(135deg, #ffffff, #a1a1aa);
+  --gradient-hero-title: linear-gradient(135deg, #cc3622, #e13300, #e13300, #e13300);
+  --gradient-discord: linear-gradient(135deg, #5865F2, #404EED);
+}

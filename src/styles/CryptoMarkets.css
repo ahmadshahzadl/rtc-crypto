@@ -1,0 +1,566 @@
+/* CryptoMarkets 3D Styles */
+.markets-section-3d {
+  position: relative;
+  min-height: 100vh;
+  background: var(--gradient-bg);
+  overflow: hidden;
+  perspective: 1000px;
+  padding: 6rem 2rem;
+}
+
+.markets-3d-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  transform-style: preserve-3d;
+}
+
+/* Floating Shapes */
+.markets-floating-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.markets-shape {
+  position: absolute;
+  background: var(--gradient-primary);
+  opacity: 0.1;
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-sm);
+  transform-style: preserve-3d;
+}
+
+.markets-shape-0 { width: 60px; height: 60px; top: 10%; left: 10%; }
+.markets-shape-1 { width: 40px; height: 40px; top: 20%; right: 15%; }
+.markets-shape-2 { width: 80px; height: 80px; top: 30%; left: 20%; }
+.markets-shape-3 { width: 50px; height: 50px; top: 40%; right: 25%; }
+.markets-shape-4 { width: 70px; height: 70px; top: 50%; left: 15%; }
+.markets-shape-5 { width: 45px; height: 45px; top: 60%; right: 20%; }
+.markets-shape-6 { width: 65px; height: 65px; top: 70%; left: 25%; }
+.markets-shape-7 { width: 55px; height: 55px; top: 80%; right: 10%; }
+.markets-shape-8 { width: 35px; height: 35px; top: 15%; left: 50%; }
+.markets-shape-9 { width: 75px; height: 75px; top: 25%; right: 40%; }
+.markets-shape-10 { width: 48px; height: 48px; top: 35%; left: 60%; }
+.markets-shape-11 { width: 62px; height: 62px; top: 45%; right: 50%; }
+
+/* Grid Pattern */
+.markets-grid-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px, 50px 50px;
+  background-position: 0 0, 25px 25px;
+  opacity: 0.3;
+}
+
+.markets-grid-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 50%;
+  transform: translateZ(10px);
+}
+
+.markets-grid-dot:nth-child(odd) {
+  background: linear-gradient(135deg, #10b981, #06d6a0);
+}
+
+/* Container */
+.markets-container-3d {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+}
+
+/* Header */
+.markets-header-3d {
+  text-align: center;
+  margin-bottom: 4rem;
+  transform-style: preserve-3d;
+}
+
+.markets-badge-3d {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  margin-bottom: 2rem;
+  position: relative;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.badge-3d-glow {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 50px;
+  opacity: 0.3;
+  filter: blur(8px);
+  z-index: -1;
+}
+
+.badge-3d-icon {
+  width: 20px;
+  height: 20px;
+  color: #6366f1;
+  transform: translateZ(5px);
+}
+
+.badge-3d-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #a1a1aa;
+  letter-spacing: 0.05em;
+  transform: translateZ(3px);
+}
+
+.badge-3d-indicator {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  animation: pulse-3d 2s infinite;
+  transform: translateZ(3px);
+}
+
+@keyframes pulse-3d {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1) translateZ(3px);
+  }
+  50% { 
+    opacity: 0.5; 
+    transform: scale(1.2) translateZ(3px);
+  }
+}
+
+.markets-title-3d {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  transform-style: preserve-3d;
+}
+
+.markets-title-line-1 {
+  display: block;
+  background: linear-gradient(135deg, #ffffff, #a1a1aa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
+  transform: translateZ(10px);
+}
+
+.markets-title-line-2 {
+  display: block;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateZ(8px);
+}
+
+.markets-description-3d {
+  font-size: 1.25rem;
+  color: #a1a1aa;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  transform: translateZ(5px);
+}
+
+/* Trading Pairs */
+.markets-pairs-3d {
+  margin-bottom: 4rem;
+  transform-style: preserve-3d;
+}
+
+.markets-pairs-grid-3d {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  transform-style: preserve-3d;
+}
+
+.pair-card-3d {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  backdrop-filter: var(--backdrop-blur);
+  transform-style: preserve-3d;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* Hover effects removed - cards are now static */
+
+.pair-card-3d-glow {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 22px;
+  opacity: 0;
+  filter: blur(10px);
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+/* Hover effects removed - cards are now static */
+
+.pair-header-3d {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  transform-style: preserve-3d;
+}
+
+.pair-icon-3d {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+}
+
+.pair-icon-3d-svg {
+  width: 24px;
+  height: 24px;
+  color: white;
+  transform: translateZ(10px);
+}
+
+.pair-info-3d {
+  flex: 1;
+  transform-style: preserve-3d;
+}
+
+.pair-name-3d {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.25rem 0;
+  transform: translateZ(5px);
+}
+
+.pair-volume-3d {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+  transform: translateZ(3px);
+}
+
+.pair-price-3d {
+  margin-bottom: 1.5rem;
+  transform-style: preserve-3d;
+}
+
+.pair-price-main-3d {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  transform: translateZ(8px);
+}
+
+.pair-change-3d {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transform: translateZ(5px);
+}
+
+.pair-change-3d.positive {
+  color: #10b981;
+}
+
+.pair-change-3d.negative {
+  color: #ef4444;
+}
+
+.pair-change-value-3d {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.pair-change-percent-3d {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.pair-chart-3d {
+  position: relative;
+  height: 80px;
+  margin-bottom: 1rem;
+  transform-style: preserve-3d;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Forex Chart Styles */
+.forex-chart-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.forex-chart-mini {
+  height: 100%;
+}
+
+.forex-chart-indicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+}
+
+.forex-chart-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+  
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Legacy chart styles - can be removed */
+/*
+.chart-line-3d {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  transform: translateY(-50%) translateZ(5px);
+}
+
+.chart-dots-3d {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: translateZ(10px);
+}
+
+.chart-dot-3d {
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 50%;
+  position: relative;
+}
+*/
+
+.pair-card-3d-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  pointer-events: none;
+  transform: translateZ(1px);
+}
+
+/* Market Stats */
+.markets-stats-3d {
+  margin-top: 4rem;
+  transform-style: preserve-3d;
+}
+
+.markets-stats-grid-3d {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  transform-style: preserve-3d;
+}
+
+.stat-card-3d {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.stat-card-3d-glow {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 18px;
+  opacity: 0;
+  filter: blur(10px);
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.stat-card-3d:hover .stat-card-3d-glow {
+  opacity: 0.3;
+}
+
+.stat-icon-3d {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  position: relative;
+  transform-style: preserve-3d;
+  box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
+}
+
+.stat-icon-3d-svg {
+  width: 28px;
+  height: 28px;
+  color: white;
+  transform: translateZ(10px);
+}
+
+.stat-content-3d {
+  transform-style: preserve-3d;
+}
+
+.stat-value-3d {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.5rem;
+  transform: translateZ(8px);
+}
+
+.stat-label-3d {
+  font-size: 1rem;
+  color: #a1a1aa;
+  font-weight: 500;
+  transform: translateZ(5px);
+}
+
+.stat-card-3d-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  pointer-events: none;
+  transform: translateZ(1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .markets-section-3d {
+    padding: 4rem 1rem;
+  }
+  
+  .markets-title-3d {
+    font-size: 2.5rem;
+  }
+  
+  .markets-description-3d {
+    font-size: 1rem;
+  }
+  
+  .markets-pairs-grid-3d {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .pair-card-3d {
+    padding: 1.5rem;
+  }
+  
+  .markets-stats-grid-3d {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .stat-card-3d {
+    padding: 1.5rem;
+  }
+  
+  .stat-value-3d {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .markets-stats-grid-3d {
+    grid-template-columns: 1fr;
+  }
+  
+  .markets-title-3d {
+    font-size: 2rem;
+  }
+}
