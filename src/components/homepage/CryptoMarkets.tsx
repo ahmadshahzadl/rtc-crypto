@@ -1,14 +1,14 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Activity, DollarSign, Target, Globe, Star } from 'lucide-react';
-import InteractiveCard from '../common/InteractiveCard';
-import ForexChart from '../ForexChart';
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Activity, DollarSign, Globe, Star } from "lucide-react";
+import InteractiveCard from "../common/InteractiveCard";
+import ForexChart from "../ForexChart";
 
 const CryptoMarkets: React.FC = () => {
   const marketsRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: marketsRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   // Parallax transforms (simplified)
@@ -16,50 +16,47 @@ const CryptoMarkets: React.FC = () => {
 
   const tradingPairs = [
     {
-      pair: 'EUR/USD',
-      price: '1.0845',
-      change: '+0.0023',
-      changePercent: '+0.21%',
-      volume: '2.4B',
-      gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-      icon: DollarSign
+      pair: "BTC/USD",
+      price: "0", // Will be fetched live
+      change: "0",
+      changePercent: "0%",
+      volume: "-",
+      gradient: "linear-gradient(135deg, #f7931a, #ffcc80)",
+      icon: DollarSign,
     },
     {
-      pair: 'GBP/USD',
-      price: '1.2650',
-      change: '-0.0015',
-      changePercent: '-0.12%',
-      volume: '1.8B',
-      gradient: 'linear-gradient(135deg, #10b981, #06d6a0)',
-      icon: Target
+      pair: "XAU/USD",
+      price: "0",
+      change: "0",
+      changePercent: "0%",
+      volume: "-",
+      gradient: "linear-gradient(135deg, #ffd700, #fffbe6)",
+      icon: Star,
     },
     {
-      pair: 'USD/JPY',
-      price: '149.85',
-      change: '+0.45',
-      changePercent: '+0.30%',
-      volume: '3.2B',
-      gradient: 'linear-gradient(135deg, #f59e0b, #f97316)',
-      icon: Globe
+      pair: "EUR/USD",
+      price: "0",
+      change: "0",
+      changePercent: "0%",
+      volume: "-",
+      gradient: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+      icon: DollarSign,
     },
     {
-      pair: 'AUD/USD',
-      price: '0.6520',
-      change: '+0.0012',
-      changePercent: '+0.18%',
-      volume: '1.1B',
-      gradient: 'linear-gradient(135deg, #ec4899, #be185d)',
-      icon: Star
-    }
+      pair: "US30",
+      price: "0",
+      change: "0",
+      changePercent: "0%",
+      volume: "-",
+      gradient: "linear-gradient(135deg, #10b981, #06d6a0)",
+      icon: Globe,
+    },
   ];
 
   return (
     <section id="markets" ref={marketsRef} className="markets-section-3d">
       {/* 3D Background Elements */}
-      <motion.div 
-        className="markets-3d-background"
-        style={{ y: backgroundY }}
-      >
+      <motion.div className="markets-3d-background" style={{ y: backgroundY }}>
         {/* Floating Geometric Shapes */}
         <div className="markets-floating-shapes">
           {Array.from({ length: 12 }).map((_, i) => (
@@ -101,8 +98,9 @@ const CryptoMarkets: React.FC = () => {
         </div>
       </motion.div>
 
-      <div className="markets-container-3d flex flex-col"
-      // style={{paddingTop: '4rem', paddingBottom: '4rem'}}
+      <div
+        className="markets-container-3d flex flex-col"
+        // style={{paddingTop: '4rem', paddingBottom: '4rem'}}
       >
         {/* Section Header */}
         <motion.div
@@ -120,7 +118,7 @@ const CryptoMarkets: React.FC = () => {
             viewport={{ once: true }}
             whileHover={{ scale: 1.1, rotateY: 5 }}
           >
-            <div className="badge-3d-glow" /> 
+            <div className="badge-3d-glow" />
             <Activity className="badge-3d-icon" />
             <span className="badge-3d-text">LIVE TRADING</span>
             <div className="badge-3d-indicator" />
@@ -138,7 +136,7 @@ const CryptoMarkets: React.FC = () => {
               animate={{
                 backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
               }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             >
               Forex Trading
             </motion.span>
@@ -160,7 +158,8 @@ const CryptoMarkets: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             viewport={{ once: true }}
           >
-            Get professional forex signals directly from Rao Umer's analysis. Track live market data and make informed trading decisions.
+            Get professional forex signals directly from Rao Umer's analysis.
+            Track live market data and make informed trading decisions.
           </motion.p>
         </motion.div>
 
@@ -180,7 +179,7 @@ const CryptoMarkets: React.FC = () => {
                 delay={index * 0.2}
               >
                 <div className="pair-card-3d-glow" />
-                
+
                 {/* Pair Header */}
                 <div className="pair-header-3d">
                   <div
@@ -189,7 +188,7 @@ const CryptoMarkets: React.FC = () => {
                   >
                     <pair.icon className="pair-icon-3d-svg" />
                   </div>
-                  
+
                   <div className="pair-info-3d">
                     <h3 className="pair-name-3d">{pair.pair}</h3>
                     <p className="pair-volume-3d">Vol: {pair.volume}</p>
@@ -199,15 +198,21 @@ const CryptoMarkets: React.FC = () => {
                 {/* Price Data */}
                 <div className="pair-price-3d">
                   <div className="pair-price-main-3d">{pair.price}</div>
-                  <div className={`pair-change-3d ${pair.change.startsWith('+') ? 'positive' : 'negative'}`}>
+                  <div
+                    className={`pair-change-3d ${
+                      pair.change.startsWith("+") ? "positive" : "negative"
+                    }`}
+                  >
                     <span className="pair-change-value-3d">{pair.change}</span>
-                    <span className="pair-change-percent-3d">{pair.changePercent}</span>
+                    <span className="pair-change-percent-3d">
+                      {pair.changePercent}
+                    </span>
                   </div>
                 </div>
 
                 {/* Real-Time Chart */}
                 <div className="pair-chart-3d">
-                  <ForexChart 
+                  <ForexChart
                     pair={pair.pair}
                     currentPrice={pair.price}
                     changePercent={pair.changePercent}

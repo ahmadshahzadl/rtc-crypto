@@ -7,6 +7,7 @@ import Services from "../components/homepage/Services";
 // import WhyChooseRTC from "../components/homepage/WhyChooseRTC";
 import CryptoMarkets from "../components/homepage/CryptoMarkets";
 import Footer from "../components/layouts/Footer";
+import YoutubeVideosSection from "../components/homepage/YoutubeVideosSection";
 
 const Homepage: React.FC = () => {
   const [introComplete] = useState(true);
@@ -39,6 +40,9 @@ const Homepage: React.FC = () => {
 
         {/* Why Choose RTC */}
         {/* <WhyChooseRTC /> */}
+
+        {/* YouTube Videos Section */}
+        <YoutubeVideosSection />
 
         {/* Crypto Markets Section */}
         <CryptoMarkets />

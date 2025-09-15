@@ -44,6 +44,7 @@ const Services: React.FC = () => {
 
   return (
     <section id="services" ref={servicesRef} className="services-section-3d">
+      
       {/* 3D Background Elements */}
       <motion.div 
         className="services-3d-background"

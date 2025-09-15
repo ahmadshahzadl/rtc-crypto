@@ -1,13 +1,13 @@
-import React, { useRef } from 'react';
-import { color, motion, useScroll, useTransform } from 'framer-motion';
-import { Users, Award, Sparkles, Globe, Star, Target } from 'lucide-react';
-import InteractiveCard from '../common/InteractiveCard';
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Users, Award, Globe, Target } from "lucide-react";
+import InteractiveCard from "../common/InteractiveCard";
 
 const CommunityStats: React.FC = () => {
   const communityRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: communityRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   // Parallax transforms (simplified)
@@ -16,49 +16,51 @@ const CommunityStats: React.FC = () => {
   const stats = [
     {
       icon: Users,
-      number: '10,000+',
-      label: 'Active Members',
-      description: 'Growing community of dedicated traders',
-      gradient: 'var(--gradient-blue)',
+      number: "10,000+",
+      label: "Active Members",
+      description: "Growing community of dedicated traders",
+      gradient: "var(--gradient-blue)",
       delay: 0.2,
-      color: 'var(--icon-community)'
+      color: "var(--icon-community)",
     },
     {
       icon: Target,
-      number: '80%+',
-      label: 'Verified Win Rate on Forex Signals',
-      description: 'Proven track record of successful trades',
-      gradient: 'var(--gradient-green)',
-      color: 'var(--icon-community)',
-      delay: 0.4
+      number: "80%+",
+      label: "Verified Win Rate on Forex Signals",
+      description: "Proven track record of successful trades",
+      gradient: "var(--gradient-green)",
+      color: "var(--icon-community)",
+      delay: 0.4,
     },
     {
       icon: Globe,
-      number: 'News Trade',
-      label: 'Experts',
-      description: 'Mastering High-Impact Events',
-      gradient: 'var(--gradient-yellow-orange)',
-      color: 'var(--icon-community)',
-      delay: 0.6
+      number: "News Trade",
+      label: "Experts",
+      description: "Mastering High-Impact Events",
+      gradient: "var(--gradient-yellow-orange)",
+      color: "var(--icon-community)",
+      delay: 0.6,
     },
     {
       icon: Award,
-      number: 'Hundreds',
-      label: 'Traders Mentored',
-      description: 'Successful trading education and guidance',
-      gradient: 'var(--gradient-pink)',
-      color: 'var(--icon-community)',
-      delay: 0.8
-    }
+      number: "Hundreds",
+      label: "Traders Mentored",
+      description: "Successful trading education and guidance",
+      gradient: "var(--gradient-pink)",
+      color: "var(--icon-community)",
+      delay: 0.8,
+    },
   ];
 
   return (
-    <section id="community" ref={communityRef} className="relative min-h-screen overflow-hidden" style={{ background: 'var(--gradient-bg)' }}>
+    <section
+      id="community"
+      ref={communityRef}
+      className="relative min-h-screen overflow-hidden"
+      style={{ background: "var(--gradient-bg)" }}
+    >
       {/* 3D Background Elements */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        style={{ y: backgroundY }}
-      >
+      <motion.div className="absolute inset-0 z-0" style={{ y: backgroundY }}>
         {/* Floating Geometric Shapes */}
         <div className="community-floating-shapes">
           {Array.from({ length: 15 }).map((_, i) => (
@@ -100,8 +102,9 @@ const CommunityStats: React.FC = () => {
         </div>
       </motion.div>
 
-      <div className="community-container-3d"
-      style={{paddingTop: '4rem', paddingBottom: '4rem'}}
+      <div
+        className="community-container-3d"
+        style={{ paddingTop: "4rem", paddingBottom: "4rem" }}
       >
         {/* Section Header */}
         <motion.div
@@ -120,7 +123,6 @@ const CommunityStats: React.FC = () => {
             whileHover={{ scale: 1.1, rotateY: 5 }}
           >
             <div className="badge-3d-glow" />
-            <Sparkles className="badge-3d-icon" />
             <span className="badge-3d-text">COMMUNITY</span>
             <div className="badge-3d-indicator" />
           </motion.div>
@@ -137,7 +139,7 @@ const CommunityStats: React.FC = () => {
               animate={{
                 backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
               }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             >
               Community
             </motion.span>
@@ -159,7 +161,8 @@ const CommunityStats: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             viewport={{ once: true }}
           >
-            Join our thriving community of successful traders and learn from the best
+            Join our thriving community of successful traders and learn from the
+            best
           </motion.p>
         </motion.div>
 
@@ -178,27 +181,18 @@ const CommunityStats: React.FC = () => {
                 className="stat-card-3d"
                 delay={stat.delay}
               >
-                <div className="stat-card-3d-glow" />
-                
+                <div
+                  className="stat-card-3d-glow"
+                  style={{ display: "none" }}
+                />
+
                 {/* Icon Container */}
                 <div className="stat-icon-3d-container">
-                  <div
-                    className="stat-icon-3d"
-                  >
-                    <stat.icon className="stat-icon-3d-svg" style={{ color: 'var(--icon-community)' }} />
-                  </div>
-                  
-                  {/* Floating mini icons */}
-                  <div
-                    className="stat-mini-icon-3d stat-mini-1"
-                  >
-                    <Star className="mini-icon-3d" style={{ color: 'var(--icon-community)' }} />
-                  </div>
-                  
-                  <div
-                    className="stat-mini-icon-3d stat-mini-2"
-                  >
-                    <Sparkles className="mini-icon-3d" style={{ color: 'var(--icon-community)' }} />
+                  <div className="stat-icon-3d">
+                    <stat.icon
+                      className="stat-icon-3d-svg"
+                      style={{ color: "var(--icon-community)" }}
+                    />
                   </div>
                 </div>
 
@@ -208,17 +202,17 @@ const CommunityStats: React.FC = () => {
                     className="stat-value-3d"
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
-                    transition={{ 
-                      duration: 0.8, 
+                    transition={{
+                      duration: 0.8,
                       delay: stat.delay + 0.3,
-                      type: 'spring',
-                      stiffness: 200
+                      type: "spring",
+                      stiffness: 200,
                     }}
                     viewport={{ once: true }}
                   >
                     {stat.number}
                   </motion.div>
-                  
+
                   <h3 className="stat-label-3d">{stat.label}</h3>
                   <p className="stat-description-3d">{stat.description}</p>
                 </div>
@@ -235,16 +229,11 @@ const CommunityStats: React.FC = () => {
                     className="stat-progress-3d-bar"
                     style={{ background: stat.gradient }}
                     initial={{ width: 0 }}
-                    whileInView={{ width: '100%' }}
+                    whileInView={{ width: "100%" }}
                     transition={{ duration: 1.5, delay: stat.delay + 0.7 }}
                     viewport={{ once: true }}
                   />
                 </motion.div>
-
-                {/* Corner Decoration */}
-                <div className="stat-corner-3d-decoration">
-                  <Globe className="corner-icon-3d" />
-                </div>
               </InteractiveCard>
             ))}
           </div>
@@ -259,19 +248,14 @@ const CommunityStats: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="community-cta-content-3d">
-            <h3 className="community-cta-title-3d">Ready to Join Our Trading Community?</h3>
+            <h3 className="community-cta-title-3d">
+              Ready to Join Our Trading Community?
+            </h3>
             <p className="community-cta-text-3d">
-              Connect with thousands of successful traders and start your profitable trading journey today
+              Connect with thousands of successful traders and start your
+              profitable trading journey today
             </p>
-            <motion.button
-              className="community-cta-button-3d"
-              whileHover={{ 
-                scale: 1.05, 
-                rotateY: 5,
-                boxShadow: '0 20px 40px rgba(99, 102, 241, 0.4)'
-              }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <motion.button className="community-cta-button-3d">
               <span className="cta-btn-text">Join Community</span>
               <motion.div
                 className="cta-btn-icon"
