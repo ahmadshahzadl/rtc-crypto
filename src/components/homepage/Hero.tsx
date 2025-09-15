@@ -100,7 +100,8 @@ const Hero: React.FC<HeroProps> = ({ showContent = true }) => {
           top: 0,
           left: '70%',
           transform: 'translateX(-50%)',
-          clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'
+          clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+          pointerEvents: 'auto'
         }}
       >
         <Orb

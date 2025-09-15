@@ -244,7 +244,7 @@ const Header: React.FC = () => {
             <motion.button
               onClick={handlePdfDownload}
               style={{
-                padding: "0.5rem",
+                padding: "0.5rem 1rem",
                 borderRadius: "0.5rem",
                 border:
                   theme === "dark"
@@ -257,7 +257,10 @@ const Header: React.FC = () => {
                 cursor: downloading ? "not-allowed" : "pointer",
                 transition: "all 0.3s ease",
                 position: "relative",
-                minWidth: 40,
+                minWidth: "auto",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
               }}
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.05 }}
@@ -269,6 +272,15 @@ const Header: React.FC = () => {
                 className="w-5 h-5"
                 style={{ color: theme === "dark" ? "#a5b4fc" : "#6366f1" }}
               />
+              <span
+                style={{
+                  color: theme === "dark" ? "#a5b4fc" : "#6366f1",
+                  fontSize: "0.875rem",
+                  fontWeight: "500",
+                }}
+              >
+                Get RTC Guide
+              </span>
               {downloading && (
                 <div
                   style={{
@@ -414,7 +426,7 @@ const Header: React.FC = () => {
             <motion.button
               onClick={handlePdfDownload}
               style={{
-                padding: "0.5rem",
+                padding: "0.5rem 1rem",
                 borderRadius: "0.5rem",
                 border:
                   theme === "dark"
@@ -427,7 +439,10 @@ const Header: React.FC = () => {
                 cursor: downloading ? "not-allowed" : "pointer",
                 transition: "all 0.3s ease",
                 position: "relative",
-                minWidth: 40,
+                minWidth: "auto",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
               }}
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.05 }}
@@ -439,6 +454,15 @@ const Header: React.FC = () => {
                 className="w-5 h-5"
                 style={{ color: theme === "dark" ? "#a5b4fc" : "#6366f1" }}
               />
+              <span
+                style={{
+                  color: theme === "dark" ? "#a5b4fc" : "#6366f1",
+                  fontSize: "0.875rem",
+                  fontWeight: "500",
+                }}
+              >
+                Get RTC Guide
+              </span>
               {downloading && (
                 <div
                   style={{
