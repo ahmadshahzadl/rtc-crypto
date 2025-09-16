@@ -1,5 +1,34 @@
 import type { SocialLink, CommunityStats, Service, HeroContent, AboutContent, WhyChooseItem } from '../interfaces';
 
+export interface ReelVideo {
+  id: string;
+  src: string;
+  thumbnail?: string;
+}
+
+export const REELS_VIDEOS: ReelVideo[] = [
+  {
+    id: 'reel-1',
+    src: '/insta/01.mp4'
+  },
+  {
+    id: 'reel-2',
+    src: '/insta/02.mp4'
+  },
+  {
+    id: 'reel-3',
+    src: '/insta/03.mp4'
+  },
+  {
+    id: 'reel-4',
+    src: '/insta/04.mp4'
+  },
+  {
+    id: 'reel-5',
+    src: '/insta/05.mp4'
+  },
+];
+
 export const DISCORD_LINK = "https://discord.gg/rtc-trading";
 export const YOUTUBE_LINK = "https://youtube.com/@rtctrading";
 export const FACEBOOK_LINK = "https://facebook.com/rtctrading";

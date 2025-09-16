@@ -52,6 +52,16 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -422,71 +432,8 @@ const Header: React.FC = () => {
           <div
             style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}
           >
-            {/* PDF Download Button */}
-            <motion.button
-              onClick={handlePdfDownload}
-              style={{
-                padding: "0.5rem 1rem",
-                borderRadius: "0.5rem",
-                border:
-                  theme === "dark"
-                    ? "1px solid rgba(255, 255, 255, 0.2)"
-                    : "1px solid rgba(0, 0, 0, 0.2)",
-                backgroundColor:
-                  theme === "dark"
-                    ? "rgba(255, 255, 255, 0.05)"
-                    : "rgba(0, 0, 0, 0.05)",
-                cursor: downloading ? "not-allowed" : "pointer",
-                transition: "all 0.3s ease",
-                position: "relative",
-                minWidth: "auto",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-              }}
-              whileTap={{ scale: 0.9 }}
-              whileHover={{ scale: 1.05 }}
-              aria-label="Download RTC PDF"
-              type="button"
-              disabled={downloading}
-            >
-              <Download
-                className="w-5 h-5"
-                style={{ color: theme === "dark" ? "#a5b4fc" : "#6366f1" }}
-              />
-              <span
-                style={{
-                  color: theme === "dark" ? "#a5b4fc" : "#6366f1",
-                  fontSize: "0.875rem",
-                  fontWeight: "500",
-                }}
-              >
-                Get RTC Guide
-              </span>
-              {downloading && (
-                <div
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    bottom: -6,
-                    width: "100%",
-                    height: 4,
-                    background: "#e0e7ff",
-                    borderRadius: 2,
-                    overflow: "hidden",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: `${downloadProgress}%`,
-                      height: "100%",
-                      background: "#6366f1",
-                      transition: "width 0.2s",
-                    }}
-                  />
-                </div>
-              )}
-            </motion.button>
+            {/* PDF Download Button (hide on mobile, show in menu modal) */}
+            {/* Only show in mobile menu modal below */}
             {/* Theme Toggle */}
             <motion.button
               onClick={toggleTheme}
@@ -635,6 +582,76 @@ const Header: React.FC = () => {
                       {item.label}
                     </motion.a>
                   ))}
+                  {/* PDF Download Button for mobile menu modal only */}
+                  {isMobile && (
+                    <motion.button
+                      onClick={handlePdfDownload}
+                      style={{
+                        padding: "0.5rem 1rem",
+                        borderRadius: "0.5rem",
+                        border:
+                          theme === "dark"
+                            ? "1px solid rgba(255, 255, 255, 0.2)"
+                            : "1px solid rgba(0, 0, 0, 0.2)",
+                        backgroundColor:
+                          theme === "dark"
+                            ? "rgba(255, 255, 255, 0.05)"
+                            : "rgba(0, 0, 0, 0.05)",
+                        cursor: downloading ? "not-allowed" : "pointer",
+                        transition: "all 0.3s ease",
+                        position: "relative",
+                        minWidth: "auto",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        marginTop: "2rem",
+                        fontSize: "1.2rem",
+                        fontWeight: 600,
+                      }}
+                      whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.05 }}
+                      aria-label="Download RTC PDF"
+                      type="button"
+                      disabled={downloading}
+                    >
+                      <Download
+                        className="w-6 h-6"
+                        style={{ color: theme === "dark" ? "#a5b4fc" : "#6366f1" }}
+                      />
+                      <span
+                        style={{
+                          color: theme === "dark" ? "#a5b4fc" : "#6366f1",
+                          fontSize: "1.1rem",
+                          fontWeight: "600",
+                        }}
+                      >
+                        Get RTC Guide
+                      </span>
+                      {downloading && (
+                        <div
+                          style={{
+                            position: "absolute",
+                            left: 0,
+                            bottom: -6,
+                            width: "100%",
+                            height: 4,
+                            background: "#e0e7ff",
+                            borderRadius: 2,
+                            overflow: "hidden",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: `${downloadProgress}%`,
+                              height: "100%",
+                              background: "#6366f1",
+                              transition: "width 0.2s",
+                            }}
+                          />
+                        </div>
+                      )}
+                    </motion.button>
+                  )}
                 </div>
               </div>
             </motion.div>

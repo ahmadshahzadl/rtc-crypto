@@ -9,7 +9,7 @@ import Orb from '../Orb';
 // Mobile Bitcoin Model Component - Optimized for mobile centering
 const MobileBitcoinModel: React.FC = () => {
   const groupRef = useRef<Group>(null);
-  const { scene } = useGLTF("/base_basic_shaded.glb");
+  const { scene } = useGLTF("/base_basic_pbr.glb");
 
   useFrame((state) => {
     if (groupRef.current) {
@@ -114,7 +114,7 @@ const Hero: React.FC<HeroProps> = ({ showContent = true }) => {
 
       {/* Logo in Center of Orb - Desktop Only */}
       <div 
-        className="absolute z-[10] flex items-center justify-center pointer-events-none hidden xl:flex"
+        className="absolute z-[10] items-center justify-center pointer-events-none hidden xl:flex"
         style={{
           width: '100%',
           height: '100%',
@@ -139,7 +139,7 @@ const Hero: React.FC<HeroProps> = ({ showContent = true }) => {
       {/* Main Content */}
       <motion.div
         className="relative z-[2] w-full max-w-[1200px] mx-auto px-4 md:px-8"
-        style={{ y: textY, opacity }}
+        style={{ y: textY, opacity: opacity, paddingTop: isMobile ? '15vh' : '0' }}
       >
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-16 items-center min-h-[80vh] overflow-visible">
           {/* Left Side Content */}

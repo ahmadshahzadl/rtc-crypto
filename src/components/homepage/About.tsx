@@ -17,8 +17,20 @@ const About: React.FC = () => {
     <section
       id="about"
       ref={aboutRef}
-      className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden py-24 px-4 md:px-8"
-      style={{ background: "var(--gradient-bg)" }}
+      className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden px-4 md:px-8"
+      style={{
+        background: "var(--gradient-bg)",
+        paddingTop: '2.5rem',
+        paddingBottom: '2.5rem',
+        paddingLeft: '1rem',
+        paddingRight: '1rem',
+        ...(window.innerWidth < 768 ? {
+          paddingTop: '3.5rem',
+          paddingBottom: '2.5rem',
+          paddingLeft: '1.2rem',
+          paddingRight: '1.2rem',
+        } : {})
+      }}
     >
       {/* 3D Background Elements */}
       <motion.div
@@ -33,8 +45,8 @@ const About: React.FC = () => {
         className="w-full flex flex-col items-center z-[2] max-w-[1400px] mx-auto"
         style={{
           transformStyle: "preserve-3d",
-          paddingTop: "2rem",
-          paddingBottom: "2rem",
+          marginTop: window.innerWidth < 768 ? '-15rem' : '-8rem',
+          paddingBottom: "1.5rem",
         }}
       >
         <motion.div
@@ -84,7 +96,7 @@ const About: React.FC = () => {
         className="relative flex flex-col xl:flex-row items-center justify-between xl:gap-16 gap-0 z-[2] max-w-[1400px] mx-auto w-full"
         style={{
           transformStyle: "preserve-3d",
-          paddingTop: "1rem",
+          paddingTop: "6rem",
           paddingBottom: "1rem",
         }}
       >
@@ -105,8 +117,11 @@ const About: React.FC = () => {
         <div className="flex flex-col items-center xl:items-start justify-center flex-1 w-full max-w-2xl px-0 xl:px-0 gap-4 text-center xl:text-left">
           {/* About Description */}
           <motion.div
-            className="text-3xl md:text-4xl xl:text-5xl font-extrabold mb-2"
-            style={{ transformStyle: "preserve-3d" }}
+            className="font-extrabold mb-2"
+            style={{
+              transformStyle: "preserve-3d",
+              fontSize: window.innerWidth < 768 ? '3rem' : '2rem',
+            }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -153,6 +168,8 @@ const About: React.FC = () => {
             style={{
               color: "var(--text-secondary)",
               transform: "translateZ(5px)",
+              paddingLeft: window.innerWidth < 768 ? '1.2rem' : undefined,
+              paddingRight: window.innerWidth < 768 ? '1.2rem' : undefined,
             }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

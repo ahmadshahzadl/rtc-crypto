@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Activity, DollarSign, Globe, Star } from "lucide-react";
 import InteractiveCard from "../common/InteractiveCard";
@@ -14,15 +14,21 @@ const CryptoMarkets: React.FC = () => {
   // Parallax transforms (simplified)
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
-  const tradingPairs = [
+  // CoinMarketCap API key from .env
+  const API_KEY = import.meta.env.VITE_CRYPTO_LIVE;
+
+  // State for live data and price history for graph
+  const [livePairs, setLivePairs] = useState([
     {
       pair: "BTC/USD",
-      price: "0", // Will be fetched live
+      price: "0",
       change: "0",
       changePercent: "0%",
       volume: "-",
       gradient: "linear-gradient(135deg, #f7931a, #ffcc80)",
       icon: DollarSign,
+      symbol: "BTC",
+      history: [] as number[],
     },
     {
       pair: "XAU/USD",
@@ -32,6 +38,8 @@ const CryptoMarkets: React.FC = () => {
       volume: "-",
       gradient: "linear-gradient(135deg, #ffd700, #fffbe6)",
       icon: Star,
+      symbol: "XAU",
+      history: [] as number[],
     },
     {
       pair: "EUR/USD",
@@ -41,6 +49,8 @@ const CryptoMarkets: React.FC = () => {
       volume: "-",
       gradient: "linear-gradient(135deg, #6366f1, #8b5cf6)",
       icon: DollarSign,
+      symbol: "EUR",
+      history: [] as number[],
     },
     {
       pair: "US30",
@@ -50,8 +60,158 @@ const CryptoMarkets: React.FC = () => {
       volume: "-",
       gradient: "linear-gradient(135deg, #10b981, #06d6a0)",
       icon: Globe,
+      symbol: "US30",
+      history: [] as number[],
     },
-  ];
+  ]);
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchMarketData() {
+      setLoading(true);
+      setError("");
+      let errorMessages: string[] = [];
+      let btcInfo: { price: any; percent_change_24h: any; volume_24h: any; } | undefined,
+        xauInfo: { price: any; change: any; changesPercentage: any; volume: any; } | undefined,
+        eurInfo: { price: any; change: any; changesPercentage: any; volume: any; } | undefined,
+        us30Info: { price: any; change: any; changesPercentage: any; volume: any; } | undefined;
+      try {
+        // 1. Fetch BTC/USD from CoinMarketCap
+        const cmcUrl = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC&convert=USD`;
+        const cmcRes = await fetch(cmcUrl, {
+          headers: {
+            "X-CMC_PRO_API_KEY": API_KEY,
+          },
+        });
+        if (!cmcRes.ok) errorMessages.push("BTC/USD: CoinMarketCap API error");
+        else {
+          const cmcData = await cmcRes.json();
+          btcInfo = cmcData?.data?.BTC?.quote?.USD;
+        }
+      } catch (err) {
+        errorMessages.push("BTC/USD: Network error");
+      }
+      try {
+        // XAU/USD (Gold)
+        const xauUrl = `https://financialmodelingprep.com/api/v3/quotes/commodity?symbol=XAUUSD`;
+        const xauRes = await fetch(xauUrl);
+        if (!xauRes.ok) errorMessages.push("XAU/USD: FMP API error");
+        else {
+          const xauData = await xauRes.json();
+          xauInfo = Array.isArray(xauData) ? xauData.find((d) => d.symbol === "XAUUSD") : null;
+        }
+      } catch (err) {
+        errorMessages.push("XAU/USD: Network error");
+      }
+      try {
+        // EUR/USD (Forex)
+        const eurUrl = `https://financialmodelingprep.com/api/v3/quotes/forex?symbol=EURUSD`;
+        const eurRes = await fetch(eurUrl);
+        if (!eurRes.ok) errorMessages.push("EUR/USD: FMP API error");
+        else {
+          const eurData = await eurRes.json();
+          eurInfo = Array.isArray(eurData) ? eurData.find((d) => d.symbol === "EURUSD") : null;
+        }
+      } catch (err) {
+        errorMessages.push("EUR/USD: Network error");
+      }
+      try {
+        // US30 (Dow Jones)
+        const us30Url = `https://financialmodelingprep.com/api/v3/quotes/index?symbol=^DJI`;
+        const us30Res = await fetch(us30Url);
+        if (!us30Res.ok) errorMessages.push("US30: FMP API error");
+        else {
+          const us30Data = await us30Res.json();
+          us30Info = Array.isArray(us30Data) ? us30Data.find((d) => d.symbol === "^DJI") : null;
+        }
+      } catch (err) {
+        errorMessages.push("US30: Network error");
+      }
+
+      if (window && window.console) {
+        console.log('BTC:', btcInfo, 'XAU:', xauInfo, 'EUR:', eurInfo, 'US30:', us30Info);
+      }
+
+      if (isMounted) {
+        setLivePairs((prev) =>
+          prev.map((pair) => {
+            let price = "0", change = "0", changePercent = "0%", volume = "-";
+            let history = pair.history || [];
+            switch (pair.symbol) {
+              case "BTC":
+                if (btcInfo) {
+                  price = Number(btcInfo.price).toFixed(2);
+                  change = Number(btcInfo.percent_change_24h).toFixed(2);
+                  changePercent = (Number(btcInfo.percent_change_24h) >= 0 ? "+" : "") + change + "%";
+                  volume = Number(btcInfo.volume_24h).toLocaleString();
+                  history = [...history, parseFloat(price)].slice(-30);
+                }
+                break;
+              case "XAU":
+                if (xauInfo) {
+                  price = Number(xauInfo.price).toFixed(2);
+                  // FMP: changesPercentage is percent change, change is absolute change
+                  change = Number(xauInfo.change).toFixed(2);
+                  changePercent = (Number(xauInfo.changesPercentage) >= 0 ? "+" : "") + Number(xauInfo.changesPercentage).toFixed(2) + "%";
+                  volume = xauInfo.volume ? Number(xauInfo.volume).toLocaleString() : "-";
+                  history = [...history, parseFloat(price)].slice(-30);
+                }
+                break;
+              case "EUR":
+                if (eurInfo) {
+                  price = Number(eurInfo.price).toFixed(5);
+                  change = Number(eurInfo.change).toFixed(5);
+                  changePercent = (Number(eurInfo.changesPercentage) >= 0 ? "+" : "") + Number(eurInfo.changesPercentage).toFixed(2) + "%";
+                  volume = eurInfo.volume ? Number(eurInfo.volume).toLocaleString() : "-";
+                  history = [...history, parseFloat(price)].slice(-30);
+                }
+                break;
+              case "US30":
+                if (us30Info) {
+                  price = Number(us30Info.price).toFixed(2);
+                  change = Number(us30Info.change).toFixed(2);
+                  changePercent = (Number(us30Info.changesPercentage) >= 0 ? "+" : "") + Number(us30Info.changesPercentage).toFixed(2) + "%";
+                  volume = us30Info.volume ? Number(us30Info.volume).toLocaleString() : "-";
+                  history = [...history, parseFloat(price)].slice(-30);
+                }
+                break;
+              default:
+                break;
+            }
+            return {
+              ...pair,
+              price,
+              change,
+              changePercent,
+              volume,
+              history,
+            };
+          })
+        );
+        // Show error only if all failed
+        if (
+          !btcInfo && !xauInfo && !eurInfo && !us30Info
+        ) {
+          setError(errorMessages.length ? errorMessages.join(' | ') : 'Failed to fetch market data');
+        } else if (errorMessages.length) {
+          setError(errorMessages.join(' | '));
+        } else {
+          setError("");
+        }
+      }
+      if (isMounted) setLoading(false);
+    }
+    fetchMarketData();
+    // Real-time polling every 5 seconds
+    const interval = setInterval(fetchMarketData, 5000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, [API_KEY]);
 
   return (
     <section id="markets" ref={marketsRef} className="markets-section-3d">
@@ -172,7 +332,7 @@ const CryptoMarkets: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="markets-pairs-grid-3d">
-            {tradingPairs.map((pair, index) => (
+            {livePairs.map((pair, index) => (
               <InteractiveCard
                 key={index}
                 className="pair-card-3d"
@@ -197,15 +357,19 @@ const CryptoMarkets: React.FC = () => {
 
                 {/* Price Data */}
                 <div className="pair-price-3d">
-                  <div className="pair-price-main-3d">{pair.price}</div>
+                  <div className="pair-price-main-3d">
+                    {loading ? "..." : pair.price}
+                  </div>
                   <div
                     className={`pair-change-3d ${
                       pair.change.startsWith("+") ? "positive" : "negative"
                     }`}
                   >
-                    <span className="pair-change-value-3d">{pair.change}</span>
+                    <span className="pair-change-value-3d">
+                      {loading ? "" : pair.change}
+                    </span>
                     <span className="pair-change-percent-3d">
-                      {pair.changePercent}
+                      {loading ? "" : pair.changePercent}
                     </span>
                   </div>
                 </div>
@@ -216,6 +380,7 @@ const CryptoMarkets: React.FC = () => {
                     pair={pair.pair}
                     currentPrice={pair.price}
                     changePercent={pair.changePercent}
+                    history={pair.history}
                     className="forex-chart-mini"
                   />
                 </div>
@@ -227,6 +392,11 @@ const CryptoMarkets: React.FC = () => {
           </div>
         </motion.div>
       </div>
+      {error && (
+        <div className="markets-error-3d">
+          <span>{error}</span>
+        </div>
+      )}
     </section>
   );
 };

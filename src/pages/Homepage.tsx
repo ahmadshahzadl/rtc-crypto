@@ -4,6 +4,7 @@ import Hero from "../components/homepage/Hero";
 import About from "../components/homepage/About";
 import CommunityStats from "../components/homepage/CommunityStats";
 import Services from "../components/homepage/Services";
+import Reel from "../components/Reel";
 // import WhyChooseRTC from "../components/homepage/WhyChooseRTC";
 import CryptoMarkets from "../components/homepage/CryptoMarkets";
 import Footer from "../components/layouts/Footer";
@@ -35,8 +36,11 @@ const Homepage: React.FC = () => {
         {/* Community Stats */}
         <CommunityStats />
 
-        {/* Services */}
-        <Services />
+  {/* Services */}
+  <Services />
+
+  {/* Reels Marquee Section */}
+  <Reel />
 
         {/* Why Choose RTC */}
         {/* <WhyChooseRTC /> */}

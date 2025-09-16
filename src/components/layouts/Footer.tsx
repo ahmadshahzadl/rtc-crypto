@@ -4,8 +4,7 @@ import {
   MessageCircle, 
   Youtube, 
   Facebook, 
-  Instagram,
-  TrendingUp
+  Instagram
 } from 'lucide-react';
 
 const Footer: React.FC = () => {
